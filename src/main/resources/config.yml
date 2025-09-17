@@ -1,0 +1,44 @@
+# FoxHomes v1.0.0 - by Arda Morkoç
+
+# Database settings
+# Type: can be 'sqlite' or 'mysql'.
+database:
+  type: 'sqlite'
+  # MySQL settings (only valid if type is 'mysql')
+  host: 'localhost'
+  port: 3306
+  database: 'foxhomes'
+  username: 'root'
+  password: 'password'
+
+# Language settings
+# Enter the file name from the lang folder (e.g., 'tr', 'en').
+language: 'en'
+
+# Teleport settings
+teleport:
+  # Cancel teleportation if the player moves.
+  # This setting is ignored for players with the 'foxhomes.bypass.move' permission.
+  cancel-on-move: true
+
+  # Default teleport delay (in seconds).
+  # Players with 'foxhomes.bypass.cooldown' permission will not have a delay.
+  # This value is overridden for players with 'foxhomes.cooldown.<seconds>' permission.
+  default-delay: 5
+
+# Home settings
+homes:
+  # The default maximum number of homes each player can have.
+  # It's unlimited for players with the 'foxhomes.unlimited' permission.
+  # This value is overridden for players with 'foxhomes.maxhomes.<number>' permission.
+  default-max-homes: 3
+
+  # List of worlds where homes can be set.
+  # An empty list [] allows all worlds.
+  allowed-worlds:
+    - 'world'
+    - 'world_nether'
+
+  # Regex for characters that can be used in home names.
+  # By default, it only allows letters and numbers.
+  allowed-name-regex: '^[a-zA-Z0-9]+$'

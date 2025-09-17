@@ -1,0 +1,61 @@
+name: FoxHomes
+version: 1.0.0
+main: arda.morkoc.foxHomes.FoxHomes
+author: arda.morkoc
+api-version: 1.13
+
+commands:
+  sethome:
+    description: Sets a home with the specified name.
+    usage: /sethome <name>
+    permission: foxhomes.sethome
+  delhome:
+    description: Deletes your specified home.
+    usage: /delhome <name>
+    permission: foxhomes.delhome
+  home:
+    description: Teleports to your specified home.
+    usage: /home <name>
+    permission: foxhomes.home
+  homelist:
+    description: Lists your homes.
+    usage: /homelist
+    aliases: [homes, listhomes]
+    permission: foxhomes.homelist
+  foxhomes:
+    description: Main FoxHomes command.
+    usage: /foxhomes <reload|list|delhome>
+    aliases: [fh]
+    permission: foxhomes.admin
+
+permissions:
+  foxhomes.admin:
+    description: Allows access to the plugin's admin commands.
+    default: op
+  foxhomes.sethome:
+    description: Allows usage of the /sethome command.
+    default: true
+  foxhomes.delhome:
+    description: Allows usage of the /delhome command.
+    default: true
+  foxhomes.home:
+    description: Allows usage of the /home command.
+    default: true
+  foxhomes.homelist:
+    description: Allows usage of the /homelist command.
+    default: true
+  foxhomes.unlimited:
+    description: Allows setting an unlimited number of homes.
+    default: op
+  foxhomes.bypass.move:
+    description: Prevents teleportation from being cancelled on move.
+    default: op
+  foxhomes.bypass.cooldown:
+    description: Bypasses the teleportation cooldown.
+    default: op
+  foxhomes.maxhomes.*:
+    description: 'Grants a specific number of homes (e.g., foxhomes.maxhomes.5).'
+    default: op
+  foxhomes.cooldown.*:
+    description: 'Assigns a specific cooldown time (e.g., foxhomes.cooldown.3).'
+    default: op
