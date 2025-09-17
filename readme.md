@@ -21,7 +21,7 @@ A modern, fast, and developer-friendly homes plugin for Spigot & Paper servers. 
 
 ## 🚀 Installation
 
-1.  Download the latest version from the [Polymart page](https://polymart.org/product/8473/foxhomes-modern-homes) or [GitHub Releases](https://www.google.com/search?q=https://github.com/benardamorkoc/foxhomes/releases).
+1.  Download the latest version from the [Polymart page](https://polymart.org/product/8473/foxhomes-modern-homes) or [GitHub Releases](https://github.com/benardamorkoc/foxhomes/releases).
 2.  Place the `FoxHomes-1.0.0.jar` file into your server's `plugins` folder.
 3.  Restart your server. The default configuration files (`config.yml` and `lang/`) will be generated.
 4.  Edit the configuration to your liking and use `/foxhomes reload` to apply the changes.
@@ -30,7 +30,7 @@ A modern, fast, and developer-friendly homes plugin for Spigot & Paper servers. 
 
 ## 🎥 Video Showcase
 
-[](https://www.google.com/search?q=https://www.youtube.com/watch%3Fv%3DScdO4Gv7pis)
+[](https://www.youtube.com/watch?v=ScdO4Gv7pis)
 
 -----
 
@@ -177,4 +177,4 @@ mvn clean package
 
 ## 💬 Support
 
-For issues or suggestions, please use the [GitHub Issues](https://www.google.com/search?q=https://github.com/benardamorkoc/foxhomes/issues) tab or join our [Discord Server](https://discord.gg/2SbDSzz7Aq).
+For issues or suggestions, please use the [GitHub Issues](https://github.com/benardamorkoc/foxhomes/issues) tab or join our [Discord Server](https://discord.gg/2SbDSzz7Aq).
