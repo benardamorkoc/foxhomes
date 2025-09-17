@@ -30,7 +30,7 @@ A modern, fast, and developer-friendly homes plugin for Spigot & Paper servers. 
 
 ## 🎥 Video Showcase
 
-[](https://www.youtube.com/watch?v=ScdO4Gv7pis)
+[![Watch the video](https://img.youtube.com/vi/ScdO4Gv7pis/maxresdefault.jpg)](https://www.youtube.com/watch?v=ScdO4Gv7pis)
 
 -----
 
