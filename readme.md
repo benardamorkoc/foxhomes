@@ -1,9 +1,3 @@
-Elbette, verdiğin `README.md` dosyasındaki tüm eksik yerleri sohbetteki bilgilerimizi ve yeni YouTube video ID'ni kullanarak doldurdum.
-
-Ayrıca, geliştirici kısmındaki hatalı link formatlarını düzelttim ve videoyu sergilemek için yeni bir bölüm ekledim. Bu metni doğrudan GitHub'daki `README.md` dosyana yapıştırabilirsin.
-
------
-
 # 🦊 FoxHomes
 
   
