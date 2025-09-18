@@ -15,7 +15,7 @@ public class FoxHomes extends JavaPlugin {
 
     private static FoxHomes instance;
     private static FoxHomesAPI api;
-    private static boolean hexColorSupported;
+
     private ConfigManager configManager;
     private LangManager langManager;
     private DatabaseManager databaseManager;
@@ -25,17 +25,13 @@ public class FoxHomes extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        checkServerVersion();
-
         configManager = new ConfigManager(this);
         langManager = new LangManager(this);
         databaseManager = new DatabaseManager(this);
         teleportManager = new TeleportManager(this);
 
         databaseManager.connect();
-
         setupAPI();
-
         registerCommands();
         registerListeners();
 
@@ -45,7 +41,6 @@ public class FoxHomes extends JavaPlugin {
     @Override
     public void onDisable() {
         getServer().getServicesManager().unregister(FoxHomesAPI.class, api);
-
         if (databaseManager != null) {
             databaseManager.disconnect();
         }
@@ -80,41 +75,22 @@ public class FoxHomes extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerMoveListener(this), this);
     }
 
-    private void checkServerVersion() {
-        try {
-            net.md_5.bungee.api.ChatColor.class.getMethod("of", String.class);
-            hexColorSupported = true;
-            getLogger().info("Hex color support is enabled (Server is 1.16+).");
-        } catch (NoSuchMethodException e) {
-            hexColorSupported = false;
-            getLogger().info("Hex color support is disabled (Server is older than 1.16). Legacy colors will be used.");
-        }
-    }
-
     public static FoxHomes getInstance() {
         return instance;
-    }
-
-    public static boolean isHexColorSupported() {
-        return hexColorSupported;
     }
 
     public ConfigManager getConfigManager() {
         return configManager;
     }
-
     public LangManager getLangManager() {
         return langManager;
     }
-
     public DatabaseManager getDatabaseManager() {
         return databaseManager;
     }
-
     public TeleportManager getTeleportManager() {
         return teleportManager;
     }
-
     public static FoxHomesAPI getApi() {
         return api;
     }

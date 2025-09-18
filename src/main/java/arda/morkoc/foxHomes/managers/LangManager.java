@@ -1,39 +1,23 @@
 package arda.morkoc.foxHomes.managers;
 
 import arda.morkoc.foxHomes.FoxHomes;
+import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.InputStreamReader;
-import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
-import java.util.logging.Level;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class LangManager {
 
     private final FoxHomes plugin;
     private FileConfiguration langConfig;
 
-    private final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
-
-    private Method ofMethod;
-
     public LangManager(FoxHomes plugin) {
         this.plugin = plugin;
         loadLangFile();
-
-        if (FoxHomes.isHexColorSupported()) {
-            try {
-                this.ofMethod = net.md_5.bungee.api.ChatColor.class.getMethod("of", String.class);
-            } catch (NoSuchMethodException e) {
-                plugin.getLogger().log(Level.WARNING, "Could not cache ChatColor.of method despite hex support being enabled.", e);
-                this.ofMethod = null;
-            }
-        }
     }
 
     public void loadLangFile() {
@@ -60,33 +44,16 @@ public class LangManager {
     }
 
     public String translateColors(String text) {
-        if (text == null) {
+        if (text == null || text.isEmpty()) {
             return "";
         }
 
-        if (FoxHomes.isHexColorSupported() && this.ofMethod != null) {
-            Matcher matcher = HEX_PATTERN.matcher(text);
-            StringBuffer buffer = new StringBuffer();
-            while (matcher.find()) {
-                try {
-                    Object chatColorObject = this.ofMethod.invoke(null, "#" + matcher.group(1));
-                    matcher.appendReplacement(buffer, chatColorObject.toString());
-                } catch (Exception e) {
-                    plugin.getLogger().log(Level.WARNING, "Failed to apply hex color via reflection", e);
-                }
-            }
-            text = matcher.appendTail(buffer).toString();
-        } else {
-            text = HEX_PATTERN.matcher(text).replaceAll("");
-        }
-
-        return org.bukkit.ChatColor.translateAlternateColorCodes('&', text);
+        return IridiumColorAPI.process(text);
     }
 
     public void sendMessage(CommandSender sender, String path, String... replacements) {
         String rawPrefix = getRawMessage("prefix");
         String rawMessage = getRawMessage(path);
-
         String finalMessage = rawPrefix + rawMessage;
 
         for (int i = 0; i < replacements.length; i += 2) {
