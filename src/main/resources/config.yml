@@ -12,7 +12,7 @@ database:
   password: 'password'
 
 # Language settings
-# Enter the file name from the lang folder (e.g., 'tr', 'en').
+# Enter the file name from the lang folder (e.g., 'tr', 'en', 'zhcn').
 language: 'en'
 
 # Teleport settings
