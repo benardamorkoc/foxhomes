@@ -10,10 +10,10 @@ A modern, fast, and developer-friendly homes plugin for Spigot & Paper servers. 
 - **Broad Version Support:** Works flawlessly from Spigot/Paper 1.8.8 to the latest Minecraft version.
 - **Hex Color Support:** Use modern `<SOLID:HEX>` or `<GRADIENT:HEX>` color codes in all messages for a vibrant look on 1.16+ servers.  
   Examples:  
-  <GRADIENT:2C08BA>Cool string with a gradient</GRADIENT:028A97>  
-  <RAINBOW1>THIS IS A REALLY COOL Rainbow</RAINBOW>  
-  <RAINBOW100>THIS IS A REALLY COOL Rainbow</RAINBOW>  
-  <SOLID:FF0080>Cool RGB SUPPORT</SOLID>
+  `<GRADIENT:2C08BA>`Cool string with a gradient`</GRADIENT:028A97>`  
+  `<RAINBOW1>`THIS IS A REALLY COOL Rainbow`</RAINBOW>`
+  `<RAINBOW100>`THIS IS A REALLY COOL Rainbow`</RAINBOW>`  
+  `<SOLID:FF0080>`Cool RGB SUPPORT`</SOLID>`
 - **Database Options:** Supports both **SQLite** for simple, file-based storage and **MySQL** for advanced, large-scale networks.
 - **Powerful Developer API:** Includes a cancellable pre-teleport event, chunk-based home lookups, and more for deep integration.
 - **Fully Customizable:** All messages, teleport delays, home limits, and more can be configured to your liking.
