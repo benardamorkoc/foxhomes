@@ -1,4 +1,4 @@
-# FoxHomes v1.0.0 - by Arda Morkoç
+# FoxHomes v1.0.3 - by Arda Morkoç
 
 # Database settings
 # Type: can be 'sqlite' or 'mysql'.
@@ -42,3 +42,34 @@ homes:
   # Regex for characters that can be used in home names.
   # By default, it only allows letters and numbers.
   allowed-name-regex: '^[a-zA-Z0-9]+$'
+
+# Command Override System
+# This system allows FoxHomes to take over commands from other plugins.
+# For example, if you have Essentials on your server and a player types /home,
+# you can use this feature to make FoxHomes' /home command run instead of Essentials'.
+# This is very useful for a seamless transition from another homes plugin.
+command-override:
+  # Use this setting to enable or disable this feature entirely.
+  # true = Enabled, false = Disabled.
+  enabled: true
+
+  # A list of commands (and their aliases) that will be redirected to FoxHomes' own commands.
+  # You can add as many commands as you like here.
+  aliases:
+    # Commands that will be redirected to the /foxhomes:home command
+    home:
+      - "home"
+      - "essentials:home"
+    # Commands that will be redirected to the /foxhomes:sethome command
+    sethome:
+      - "sethome"
+      - "essentials:sethome"
+    # Commands that will be redirected to the /foxhomes:delhome command
+    delhome:
+      - "delhome"
+      - "essentials:delhome"
+    # Commands that will be redirected to the /foxhomes:homelist command
+    homelist:
+      - "homes"
+      - "listhomes"
+      - "essentials:homes"

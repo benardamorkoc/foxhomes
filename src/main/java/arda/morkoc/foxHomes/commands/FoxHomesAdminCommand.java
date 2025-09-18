@@ -32,7 +32,7 @@ public class FoxHomesAdminCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 0) {
-            sender.sendMessage("§e/foxhomes <reload|delhome|list>");
+            sender.sendMessage(plugin.getLangManager().translateColors("&e/foxhomes <reload|list|delhome|sethome|movehome>"));
             return true;
         }
 
@@ -46,8 +46,14 @@ public class FoxHomesAdminCommand implements CommandExecutor, TabCompleter {
             case "list":
                 handleList(sender, args);
                 break;
+            case "sethome":
+                handleSetHome(sender, args);
+                break;
+            case "movehome":
+                handleMoveHome(sender, args);
+                break;
             default:
-                sender.sendMessage("§cUnknown subcommand.");
+                sender.sendMessage(plugin.getLangManager().translateColors("&cUnknown subcommand."));
                 break;
         }
         return true;
@@ -113,28 +119,99 @@ public class FoxHomesAdminCommand implements CommandExecutor, TabCompleter {
                     return;
                 }
                 plugin.getLangManager().sendMessage(sender, "admin-home-list-header", "{player_name}", target.getName());
-                String homeListString = homes.stream().map(h -> h.getName()).collect(Collectors.joining(", "));
-                sender.sendMessage("§e" + homeListString);
+                String homeListString = homes.stream().map(Home::getName).collect(Collectors.joining(", "));
+                sender.sendMessage(plugin.getLangManager().translateColors("&e" + homeListString));
             });
+        });
+    }
+
+    private void handleSetHome(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            plugin.getLangManager().sendMessage(sender, "admin-must-be-player");
+            return;
+        }
+        Player admin = (Player) sender;
+
+        if (args.length < 3) {
+            plugin.getLangManager().sendMessage(sender, "usage-foxhomes-sethome");
+            return;
+        }
+        String playerName = args[1];
+        String homeName = args[2];
+
+        OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
+        if (target == null || !target.hasPlayedBefore()) {
+            plugin.getLangManager().sendMessage(sender, "admin-player-not-found", "{player_name}", playerName);
+            return;
+        }
+
+        plugin.getDatabaseManager().getActiveData().setHome(target.getUniqueId(), homeName, admin.getLocation())
+                .thenRun(() -> {
+                    plugin.getServer().getScheduler().runTask(plugin, () -> {
+                        plugin.getLangManager().sendMessage(sender, "admin-home-set-success",
+                                "{player_name}", target.getName(),
+                                "{home_name}", homeName);
+                    });
+                });
+    }
+
+    private void handleMoveHome(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            plugin.getLangManager().sendMessage(sender, "admin-must-be-player");
+            return;
+        }
+        Player admin = (Player) sender;
+
+        if (args.length < 3) {
+            plugin.getLangManager().sendMessage(sender, "usage-foxhomes-movehome");
+            return;
+        }
+        String playerName = args[1];
+        String homeName = args[2];
+
+        OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
+        if (target == null || !target.hasPlayedBefore()) {
+            plugin.getLangManager().sendMessage(sender, "admin-player-not-found", "{player_name}", playerName);
+            return;
+        }
+
+        plugin.getDatabaseManager().getActiveData().getHome(target.getUniqueId(), homeName).thenAccept(home -> {
+            if (home == null) {
+                plugin.getServer().getScheduler().runTask(plugin, () -> {
+                    plugin.getLangManager().sendMessage(sender, "admin-home-does-not-exist-move",
+                            "{player_name}", target.getName(),
+                            "{home_name}", homeName);
+                });
+                return;
+            }
+
+            plugin.getDatabaseManager().getActiveData().setHome(target.getUniqueId(), homeName, admin.getLocation())
+                    .thenRun(() -> {
+                        plugin.getServer().getScheduler().runTask(plugin, () -> {
+                            plugin.getLangManager().sendMessage(sender, "admin-home-moved-success",
+                                    "{player_name}", target.getName(),
+                                    "{home_name}", homeName);
+                        });
+                    });
         });
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("reload", "delhome", "list").stream()
+            return Arrays.asList("reload", "delhome", "list", "sethome", "movehome").stream()
                     .filter(s -> s.startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
         }
 
-        if (args.length == 2 && (args[0].equalsIgnoreCase("delhome") || args[0].equalsIgnoreCase("list"))) {
+        if (args.length == 2 && (args[0].equalsIgnoreCase("delhome") || args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("sethome") || args[0].equalsIgnoreCase("movehome"))) {
             return Bukkit.getOnlinePlayers().stream()
                     .map(Player::getName)
                     .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
                     .collect(Collectors.toList());
         }
 
-        if (args.length == 3 && args[0].equalsIgnoreCase("delhome")) {
+        if (args.length == 3 && (args[0].equalsIgnoreCase("delhome") || args[0].equalsIgnoreCase("movehome"))) {
             String playerName = args[1];
             OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
 

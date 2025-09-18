@@ -5,9 +5,11 @@ import arda.morkoc.foxHomes.api.FoxHomesAPI;
 import arda.morkoc.foxHomes.commands.*;
 import arda.morkoc.foxHomes.database.DatabaseManager;
 import arda.morkoc.foxHomes.listeners.PlayerMoveListener;
+import arda.morkoc.foxHomes.managers.CommandOverrideManager;
 import arda.morkoc.foxHomes.managers.ConfigManager;
 import arda.morkoc.foxHomes.managers.LangManager;
 import arda.morkoc.foxHomes.managers.TeleportManager;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,6 +22,7 @@ public class FoxHomes extends JavaPlugin {
     private LangManager langManager;
     private DatabaseManager databaseManager;
     private TeleportManager teleportManager;
+    private CommandOverrideManager commandOverrideManager;
 
     @Override
     public void onEnable() {
@@ -29,11 +32,18 @@ public class FoxHomes extends JavaPlugin {
         langManager = new LangManager(this);
         databaseManager = new DatabaseManager(this);
         teleportManager = new TeleportManager(this);
+        commandOverrideManager = new CommandOverrideManager(this);
 
         databaseManager.connect();
         setupAPI();
         registerCommands();
         registerListeners();
+
+        if (configManager.isCommandOverrideEnabled()) {
+            Bukkit.getScheduler().runTaskLater(this, () -> {
+                commandOverrideManager.registerOverrides();
+            }, 1L);
+        }
 
         getLogger().info("FoxHomes has been enabled successfully!");
     }

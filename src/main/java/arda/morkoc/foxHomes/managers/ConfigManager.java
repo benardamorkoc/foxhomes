@@ -54,4 +54,24 @@ public class ConfigManager {
     public String getAllowedNameRegex() {
         return config.getString("homes.allowed-name-regex", "^[a-zA-Z0-9]+$");
     }
+
+    public boolean isCommandOverrideEnabled() {
+        return config.getBoolean("command-override.enabled", true);
+    }
+
+    public List<String> getHomeAliases() {
+        return config.getStringList("command-override.aliases.home");
+    }
+
+    public List<String> getSetHomeAliases() {
+        return config.getStringList("command-override.aliases.sethome");
+    }
+
+    public List<String> getDelHomeAliases() {
+        return config.getStringList("command-override.aliases.delhome");
+    }
+
+    public List<String> getHomeListAliases() {
+        return config.getStringList("command-override.aliases.homelist");
+    }
 }
