@@ -57,6 +57,8 @@ A modern, fast, and developer-friendly homes plugin for Spigot & Paper servers. 
 | `/foxhomes reload` | Reloads the plugin's configuration. | `foxhomes.admin` |
 | `/foxhomes list <player>` | Lists the homes of a specific player. | `foxhomes.admin` |
 | `/foxhomes delhome <player> <name>` | Deletes a specific home of a player. | `foxhomes.admin` |
+| `/foxhomes sethome <player> <name>` | Sets a home for a player at the admin's location. | `foxhomes.admin` |
+| `/foxhomes movehome <player> <name>` | Moves a player's home to the admin's location. | `foxhomes.admin` |
 
 ### All Permissions
 
