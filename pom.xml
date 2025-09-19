@@ -5,7 +5,7 @@
 
     <groupId>arda.morkoc</groupId>
     <artifactId>FoxHomes</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
 
     <name>FoxHomes</name>
@@ -32,12 +32,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.4</version>
-                <!-- YENİ: Gölgeleme için Relocation ayarı -->
                 <configuration>
                     <relocations>
                         <relocation>
                             <pattern>me.iridium.iridiumcolorapi</pattern>
-                            <!-- Kütüphaneyi kendi paket yolunuza taşıyarak çakışmaları önleyin -->
                             <shadedPattern>arda.morkoc.foxHomes.libs.iridiumcolorapi</shadedPattern>
                         </relocation>
                     </relocations>
