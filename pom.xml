@@ -67,7 +67,6 @@
             <id>iridiumdevelopment</id>
             <url>https://nexus.iridiumdevelopment.net/repository/maven-releases/</url>
         </repository>
-
         <repository>
             <id>sonatype-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
@@ -80,6 +79,12 @@
             <artifactId>spigot-api</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.md-5</groupId>
+                    <artifactId>bungeecord-chat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.iridium</groupId>
